@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # Complete MINI-LINK Alarm Prioritization System
+  mini-link-system:
+    build:
+      context: .
+      dockerfile: Dockerfile.ui
+    container_name: mini-link-alarm-ui
+    ports:
+      - "3000:3000"  # Frontend
+      - "3001:3001"  # Backend API
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data
+      - ./ui/backend/uploads:/app/uploads
+    environment:
+      - PORT=3001
+      - REACT_APP_API_URL=http://localhost:3001
+    networks:
+      - alarm-network
+
+networks:
+  alarm-network:
+    driver: bridge

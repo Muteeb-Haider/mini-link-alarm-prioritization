@@ -1,0 +1,92 @@
+# Multi-stage build for MINI-LINK Alarm Prioritization UI System
+FROM node:18-alpine AS frontend-builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy frontend package files
+COPY ui/package*.json ./
+
+# Install frontend dependencies
+RUN npm install
+
+# Copy frontend source code
+COPY ui/src ./src
+COPY ui/public ./public
+COPY ui/tsconfig.json ./
+
+# Build the React app
+RUN npm run build
+
+# Backend and C++ build stage
+FROM node:18-alpine AS backend-builder
+
+# Install build dependencies for C++ CLI
+RUN apk add --no-cache \
+    build-base \
+    cmake \
+    git
+
+# Set working directory
+WORKDIR /app
+
+# Copy C++ source and build it
+COPY cpp /app/cpp
+COPY config /app/config
+COPY data /app/data
+
+# Build C++ CLI
+RUN mkdir -p build && cd build && \
+    cmake -DCMAKE_BUILD_TYPE=Release ../cpp && \
+    cmake --build . --config Release
+
+# Copy backend package files
+COPY ui/backend/package*.json ./
+
+# Install backend dependencies
+RUN npm install
+
+# Copy backend source code
+COPY ui/backend ./
+
+# Create uploads directory
+RUN mkdir -p uploads
+
+# Final stage - combine everything
+FROM node:18-alpine
+
+# Install serve for frontend
+RUN npm install -g serve
+
+# Set working directory
+WORKDIR /app
+
+# Copy built frontend from frontend-builder
+COPY --from=frontend-builder /app/build ./build
+
+# Copy backend and C++ CLI from backend-builder
+COPY --from=backend-builder /app ./
+
+# Copy config and data
+COPY config /app/config
+COPY data /app/data
+
+# Create startup script
+RUN echo '#!/bin/sh' > /app/start.sh && \
+    echo 'echo "🚀 Starting MINI-LINK Alarm Prioritization System..."' >> /app/start.sh && \
+    echo 'echo "📊 Starting Backend API on port 3001..."' >> /app/start.sh && \
+    echo 'npm start &' >> /app/start.sh && \
+    echo 'sleep 3' >> /app/start.sh && \
+    echo 'echo "🌐 Starting Frontend on port 3000..."' >> /app/start.sh && \
+    echo 'serve -s build -l 3000 &' >> /app/start.sh && \
+    echo 'echo "✅ System is running!"' >> /app/start.sh && \
+    echo 'echo "🔗 Frontend: http://localhost:3000"' >> /app/start.sh && \
+    echo 'echo "🔗 Backend:  http://localhost:3001"' >> /app/start.sh && \
+    echo 'wait' >> /app/start.sh && \
+    chmod +x /app/start.sh
+
+# Expose ports
+EXPOSE 3000 3001
+
+# Start both services
+CMD ["/app/start.sh"]
