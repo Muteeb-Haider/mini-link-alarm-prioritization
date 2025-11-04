@@ -1,0 +1,62 @@
+[
+  {
+    "id": "ALM-1001",
+    "nodeId": "MINI-LINK-01",
+    "severity": "Critical",
+    "firstSeen": "2025-08-22T13:05:00Z",
+    "lastSeen": "2025-08-23T09:30:00Z",
+    "occurrencesPerHour": 8.5,
+    "affectedLinks": 3,
+    "trafficImpactPct": 45.0,
+    "serviceAffecting": true,
+    "description": "Link down on interface GE1"
+  },
+  {
+    "id": "ALM-2034",
+    "nodeId": "MINI-LINK-02",
+    "severity": "Major",
+    "firstSeen": "2025-08-20T05:10:00Z",
+    "lastSeen": "2025-08-22T05:10:00Z",
+    "occurrencesPerHour": 2.0,
+    "affectedLinks": 1,
+    "trafficImpactPct": 5.0,
+    "serviceAffecting": false,
+    "description": "SFP Rx power low threshold crossed"
+  },
+  {
+    "id": "ALM-3055",
+    "nodeId": "MINI-LINK-01",
+    "severity": "Minor",
+    "firstSeen": "2025-08-23T08:15:00Z",
+    "lastSeen": "2025-08-23T08:45:00Z",
+    "occurrencesPerHour": 12.0,
+    "affectedLinks": 0,
+    "trafficImpactPct": 0.0,
+    "serviceAffecting": false,
+    "description": "Temperature warning spike"
+  },
+  {
+    "id": "ALM-4007",
+    "nodeId": "MINI-LINK-03",
+    "severity": "Critical",
+    "firstSeen": "2025-08-21T12:00:00Z",
+    "lastSeen": "2025-08-23T09:15:00Z",
+    "occurrencesPerHour": 1.2,
+    "affectedLinks": 5,
+    "trafficImpactPct": 60.0,
+    "serviceAffecting": true,
+    "description": "Radio link degraded due to interference"
+  },
+  {
+    "id": "ALM-5112",
+    "nodeId": "MINI-LINK-04",
+    "severity": "Warning",
+    "firstSeen": "2025-08-19T10:00:00Z",
+    "lastSeen": "2025-08-19T11:20:00Z",
+    "occurrencesPerHour": 0.3,
+    "affectedLinks": 0,
+    "trafficImpactPct": 0.0,
+    "serviceAffecting": false,
+    "description": "Fan speed variance"
+  }
+]
