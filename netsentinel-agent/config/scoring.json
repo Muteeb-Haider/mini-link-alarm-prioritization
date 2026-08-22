@@ -1,0 +1,18 @@
+{
+  "severityWeights": {
+    "Critical": 100.0,
+    "Major": 70.0,
+    "Minor": 40.0,
+    "Warning": 20.0,
+    "Info": 10.0
+  },
+  "alphaFrequency": 10.0,
+  "betaImpact": 0.8,
+  "gammaServiceAffectingBonus": 15.0,
+  "recencyHalfLifeHours": 6.0,
+  "norm": {
+    "maxOccurrencesPerHour": 20.0,
+    "maxAffectedLinks": 10.0,
+    "maxTrafficImpactPct": 100.0
+  }
+}
