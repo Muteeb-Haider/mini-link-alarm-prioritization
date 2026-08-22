@@ -1,0 +1,47 @@
+[
+  {
+    "id": "RB-LINK-DOWN",
+    "title": "Interface / Link Down",
+    "keywords": "link down interface GE port fiber cable disconnect",
+    "root_cause": "Physical layer failure — either a fiber cut, a failed SFP transceiver, or the remote-end radio unit lost sync.",
+    "recommended_action": "Check optical Rx/Tx levels on the SFP first. If levels are within spec, escalate to a field technician for a physical link inspection.",
+    "auto_remediable": false,
+    "risk": "high"
+  },
+  {
+    "id": "RB-SFP-RX-LOW",
+    "title": "SFP Rx Power Low",
+    "keywords": "sfp rx power low threshold optical",
+    "root_cause": "Optical attenuation is creeping up, usually from a dirty connector, a bend in the fiber, or transceiver aging.",
+    "recommended_action": "Trigger a remote SFP diagnostics poll and log the trend. If Rx power has degraded more than 3dB over 7 days, auto-open a maintenance ticket.",
+    "auto_remediable": true,
+    "risk": "low"
+  },
+  {
+    "id": "RB-TEMP-SPIKE",
+    "title": "Temperature Warning Spike",
+    "keywords": "temperature warning spike thermal fan overheating",
+    "root_cause": "Short-lived thermal spike, most often caused by a blocked vent, a fan running below expected RPM, or a brief HVAC issue in the cabinet room.",
+    "recommended_action": "Auto-restart the cooling fan controller and re-poll temperature in 5 minutes. Only escalate if the spike persists past two polling cycles.",
+    "auto_remediable": true,
+    "risk": "low"
+  },
+  {
+    "id": "RB-RADIO-INTERFERENCE",
+    "title": "Radio Link Degraded — Interference",
+    "keywords": "radio link degraded interference microwave frequency",
+    "root_cause": "Co-channel or adjacent-channel interference from a nearby transmitter, or seasonal fading affecting the microwave path.",
+    "recommended_action": "Do not auto-remediate. Frequency changes affect a live service-affecting path — escalate to the RF planning team with the interference log attached.",
+    "auto_remediable": false,
+    "risk": "high"
+  },
+  {
+    "id": "RB-FAN-VARIANCE",
+    "title": "Fan Speed Variance",
+    "keywords": "fan speed variance vibration bearing",
+    "root_cause": "Minor mechanical variance in fan RPM, typically within normal tolerance and self-correcting.",
+    "recommended_action": "Log and suppress. No action needed unless variance recurs more than 5 times in 24 hours.",
+    "auto_remediable": true,
+    "risk": "low"
+  }
+]
